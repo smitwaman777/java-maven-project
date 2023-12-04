@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // checkout code from respective repository
+                git branch: 'main', url: 'https://github.com/wamansmit/terra-jenkins.git'
+            }
+        }
+        
+        stage('Build') {
+            steps{ 
+
+withMaven(globalMavenSettingsConfig: '', jdk:'', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
+    // Use the Maven tool defined in Jenkins to build your project
+                // Make sure you've configured the Maven tool in Jenkins Global Tool Configuration
+                sh 'mvn clean package'
+}
+         
+             }
+            }
+        
+       
+            
+        
+    }
+    
+    
+}
